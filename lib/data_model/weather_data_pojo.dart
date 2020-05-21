@@ -1,4 +1,5 @@
 //Weather model class
+
 class Weather {
   String name;
   String country;

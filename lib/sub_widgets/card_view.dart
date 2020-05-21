@@ -1,7 +1,7 @@
+import 'package:c2btechweatherapidemo/constants/ui_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:c2btechweatherapidemo/constants/ui_constants.dart';
 
 class CardView extends StatelessWidget {
   final String name;
@@ -10,12 +10,11 @@ class CardView extends StatelessWidget {
   final String weatherIcon;
   final String weatherDescription;
 
-  CardView(
-      {this.name,
-      this.country,
-      this.temperature,
-      this.weatherIcon,
-      this.weatherDescription});
+  CardView({this.name,
+    this.country,
+    this.temperature,
+    this.weatherIcon,
+    this.weatherDescription});
 
   @override
   Widget build(BuildContext context) {
@@ -29,42 +28,42 @@ class CardView extends StatelessWidget {
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-          child: Row(
+          child: Column(
             children: <Widget>[
               Expanded(
-                flex: 1,
-                child: Image.network(weatherIcon),
-              ),
-              SizedBox(
-                width: 15.0,
-              ),
-              Expanded(
-                child: Text('$temperature-$country'),
-              ),
-              SizedBox(
-                width: 15.0,
-              ),
-              Expanded(
-                flex: 2,
-                child: Column(
+                child: Row(
                   children: <Widget>[
-                    Text(
-                      name,
-                      textAlign: TextAlign.center,
-                      style: kTextFieldStyle,
+                    Expanded(
+                      child: Image.network(
+                        weatherIcon,
+                        scale: 0.1,
+                      ),
                     ),
                     SizedBox(
-                      height: 10.0,
+                      width: 20.0,
                     ),
-                    Text(
-                      //TODO: 2 Edit style as constant
-                      //TODO: 3 Text widgets are repeated
-                      weatherDescription,
-                      textAlign: TextAlign.center,
-                      style: kTextFieldStyle.copyWith(
-                          fontSize: 15.0, color: Colors.blueGrey),
+                    Expanded(
+                      child: Text(
+                        '$temperature°',
+                        style: kTempFieldStyle,
+                      ),
                     ),
                   ],
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Expanded(
+                child: Text(
+                  '$name , $country',
+                  style: kTextFieldStyle,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  '"$weatherDescription"',
+                  style: kTextFieldStyle,
                 ),
               ),
             ],

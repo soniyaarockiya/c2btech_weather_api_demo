@@ -11,7 +11,8 @@ const List<String> cityNames = [
   'Pune',
   'Chennai',
   'Bangalore',
-  'Hyderabad'
+  'Hyderabad',
+  'Cochin'
 ];
 
 class WeatherData {
@@ -24,16 +25,22 @@ class WeatherData {
   String weatherDescription;
 
   Future<Weather> getLocationWeather(String city) async {
+    //Attach api key and city value to the url
     String url =
         "http://api.weatherstack.com/current?access_key=$apiKey&query=$city";
 
+    // Get Response
     dynamic response = await _networking.getData(url);
+
+    //Weather data
     name = (response['location']['name']).toString();
     country = (response['location']['country']).toString();
     temperature = (response['current']['temperature']).toString();
     weatherIcon = response['current']['weather_icons'][0];
     weatherDescription =
         (response['current']['weather_descriptions'][0]).toString();
+
+    //Add the values to weather object
     Weather weather = new Weather(
         name: name,
         country: country,
@@ -41,22 +48,22 @@ class WeatherData {
         weatherIcon: weatherIcon,
         weatherDescription: weatherDescription);
 
+    //pass the weather object
     return weather;
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItem() {
     List<DropdownMenuItem<String>> dropDownItemList = [];
 
+    //City names are available in weather_data
     for (String city in cityNames) {
       print(city);
-
       var newItem = DropdownMenuItem(
         child: Text(city),
         value: city,
       );
       dropDownItemList.add(newItem);
     }
-
     return dropDownItemList;
   }
 }
